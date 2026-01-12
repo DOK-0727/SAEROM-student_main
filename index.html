@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Browser</title>
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+
+        * {
+            font-family: "pretendard"
+        }
+
+        body {
+            background-color: #f3f3f3;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        a {
+            background-color: #fff;
+            border-radius: 16px;
+            height: 95px;
+            width: 95px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transition: all 0.1s ease-in;
+            margin-bottom: 20px;
+        }
+
+        a:hover {
+            height: 100px;
+            width: 100px;
+        }
+
+        a img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+        }
+
+        a label {
+            white-space: nowrap;
+            text-decoration: none;
+            color: white;
+            position: absolute;
+            top: 98px;
+            left: 50%;
+            transform: translate(-50%, 20%);
+            font-weight: 500;
+            font-size: 17px;
+        }
+
+        a .detail {
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            width: 100px;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        a:hover .detail {
+            display: block;
+        }
+
+        #tool_wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            justify-content: center;
+        }
+
+        #google_tools,
+        #create_tools,
+        #search_tools,
+        #ai_tools,
+        #educate_tools,
+        #career_tools,
+        #communication_tools {
+            padding: 20px;
+            width: calc(100% - 3.5% - 280px - 120px);
+            border-radius: 20px;
+            background-color: rgba(35, 15, 15, 0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 95px);
+            grid-auto-rows: auto;
+            grid-column-gap: 20px;
+            grid-row-gap: 40px;
+            justify-content: center;
+            margin-left: 3.5%
+        }
+
+        #side_object {
+            display: flex;
+            position: absolute;
+            top: 250px;
+            right: 3.5%;
+        }
+
+        #side_object iframe {
+            width: 280px;
+            height: 1700px;
+            border: none;
+        }
+
+        #buttons {
+            display: flex;
+            position: absolute;
+            right: 3.5%;
+            top: 210px;
+            width: 280px;
+        }
+
+        #meals {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 600px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #meals iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+            transform: scale(0.8);
+            display: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #meals_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 230px
+        }
+
+        #schedule {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 680px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #schedule iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+            transform: scale(0.9);
+            display: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #schedule_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 160px
+        }
+
+        #calendar {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 600px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #calendar iframe {
+            width: 800px;
+            height: 600px;
+            border: none;
+            border-radius: 20px;
+            transform: scale(0.95);
+            display: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #calendar_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 90px;
+        }
+
+        #suggestions {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 400px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #suggestions iframe {
+            width: 250px;
+            height: 400px;
+            border: none;
+            border-radius: 20px;
+            display: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #suggestions_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 300px;
+        }
+
+        #wifi {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 820px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #wifi iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+            transform: scale(0.75);
+            display: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #wifi_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 370px;
+        }
+
+        #diagnosis {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 500px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #diagnosis iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+            display: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #diagnosis_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 440px;
+        }
+
+        #chromebook iframe {
+            border: none;
+            width: 220px;
+            height: 70px;
+            z-index: 10;
+        }
+
+        #chromebook {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 192px;
+            left: 3.5%;
+        }
+
+        #more_button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            height: 15px;
+            width: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            position: absolute;
+            right: 20px;
+        }
+
+        #buttons.collapsed>div.hidden-button {
+            display: none;
+        }
+
+        #buttons.collapsed {
+            display: flex;
+            position: absolute;
+            right: 3.5%;
+            top: 210px;
+            width: 280px;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            gap: 10px;
+            /* 기본 간격 */
+        }
+
+        /* expanded 상태 - 왼쪽에서 3.5%, 버튼 가로로 70px 간격 */
+        #buttons.expanded {
+            display: flex;
+            position: absolute;
+            /* 절대 위치 유지 */
+            left: 3.5%;
+            /* 왼쪽 3.5% 위치 */
+            top: 210px;
+            /* 위쪽 위치 동일 */
+            width: auto;
+            /* 넓이 자동 조절 */
+            flex-wrap: nowrap;
+            /* 한 줄로 */
+            justify-content: flex-start;
+            gap: 70px;
+            /* 버튼 간격 70px */
+        }
+
+        .material-icons {
+            font-size: 36px;
+            user-select: none;
+        }
+
+        #blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            z-index: 990;
+            display: none;
+            animation: fade-in 0.2s ease-in;
+        }
+
+        #container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 50%;
+            top: 210px;
+            z-index: 990;
+        }
+
+        #searchIcon {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+            margin-right: 10px;
+        }
+
+        #searchIcon svg {
+            width: 20px;
+            height: 20px;
+            fill: #555;
+        }
+
+        #suggestionContainer {
+            display: inline-block;
+            position: relative;
+            width: 350px;
+        }
+
+        #suggestionList {
+            position: absolute;
+            z-index: 1;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 5px;
+            width: 350px;
+            display: none;
+        }
+
+        #suggestionList li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #suggestionList li.active {
+            background: #cceaff;
+        }
+
+        #suggestionList p {
+            padding: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        #container input[type="text"] {
+            width: 400px;
+            height: 50px;
+            padding: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.24);
+            border-radius: 25px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        .banner-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 150px;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 16px;
+        }
+
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            gap: 20px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tabs {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .tab-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 6px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-dot.active {
+            background: #333;
+        }
+
+        /* 좌우 화살표 스타일 */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+            opacity: 0;
+            z-index: 10;
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+
+        .banner-wrapper:hover .arrow {
+            opacity: 1;
+        }
+
+        #producer {
+            z-index: 999;
+        }
+
+        #producer li {
+            color: #999999;
+            flex-wrap: wrap;
+            gap: 5px;
+            z-index: 999;
+        }
+
+        iframe {
+            animation: fade-in ease-in 0.3s;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="https://raw.githubusercontent.com/minseo6008/dokdo-game/refs/heads/main/images/main/%E1%84%89%E1%85%A2%E1%84%85%E1%85%A9%E1%86%B7%E1%84%80%E1%85%A9.webp"
+        style="position:fixed; top:50%; left:50%; transform:translate(-50%, -40%); width:300px; height:300px; filter: blur(2px); z-index: -1;">
+
+    <div id="tool_wrapper">
+        <div class="banner-wrapper">
+            <div id="banner1" class="banner hidden"></div>
+            <div id="banner2" class="banner hidden"></div>
+            <div class="arrow left" onclick="prevBanner()">&#9664;</div>
+            <div class="arrow right" onclick="nextBanner()">&#9654;</div>
+        </div>
+
+        <div class="tabs" id="tabs"></div>
+
+        <div id="container">
+            <div id="searchIcon" title="검색">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.11 
+                 5.59 12.52 3 9.5 3S3.89 5.59 3.89 8.89s2.59 5.89 
+                 5.61 5.89a6.47 6.47 0 005.34-1.48l.27.28v.79l4.25 
+                 4.25c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L15.5 
+                 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 
+                 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                </svg>
+            </div>
+
+            <div id="suggestionContainer">
+                <input type="text" id="inputField" placeholder="웹 검색" oninput="showSuggestions()"
+                    onkeydown="checkEnterKey(event)" autocomplete="off" />
+                <ul id="suggestionList"></ul>
+            </div>
+        </div>
+
+        <div id="buttons" class="collapsed">
+
+            <div id="schedule_button" onclick="toggleschedule()">
+                <i class="material-icons" id="schedule_icon">schedule</i>
+                <p
+                    style="position:absolute; top:30px; left:0px; width:50px; font-size:13px; font-weight: 600; color: #2f2f2f;">
+                    시간표</p>
+            </div>
+
+            <div id="schedule">
+                <iframe
+                    src="https://script.google.com/a/macros/saerom.hs.kr/s/AKfycbxmqPC9vxc5JAAavHDpIxeCTLGCDqej8d8Dcqwv7j7oR9PbHVg3iI_1WnQiP8S_N2oz/exec"></iframe>
+            </div>
+
+            <div id="meals_button" onclick="togglemeals()">
+                <i class="material-icons" id="meals_icon">restaurant_menu</i>
+                <p
+                    style="position:absolute; top:30px; left:0px; width:50px; font-size:13px; font-weight: 600; color: #2f2f2f;">
+                    급식표</p>
+            </div>
+
+            <div id="meals">
+                <iframe
+                    src="https://script.google.com/macros/s/AKfycbzrgy7_je7dGbnQJjzzcqKJMHjB-QWqHZMVMcVVqmJ-ZAylvqknrD5IsvgSRvn0X6imow/exec"></iframe>
+            </div>
+
+            <div id="calendar_button" onclick="toggleCalendar()">
+                <i class="material-icons" id="calendar_icon">calendar_today</i>
+                <p
+                    style="position:absolute; top:30px; left:0px; width:50px; font-size:13px; font-weight: 600; color: #2f2f2f">
+                    캘린더</p>
+            </div>
+
+            <div id="calendar">
+                <iframe
+                    src="https://calendar.google.com/calendar/u/0/embed?color=%234986e7&src=c_75e632ca831edd3bc3f5ca852150b09b45e4998707845df6c51e60b56c3d179a@group.calendar.google.com"></iframe>
+            </div>
+
+            <div id="more_button">⋮</div>
+
+            <div id="suggestions_button" class="hidden-button" onclick="toggleSuggestions()">
+                <i class="material-icons" id="suggestions_icon">campaign</i>
+                <p
+                    style="position:absolute; top:30px; left:0px; width:50px; font-size:13px; font-weight: 600; color: #2f2f2f;">
+                    건의함</p>
+            </div>
+
+            <div id="suggestions">
+                <iframe
+                    src="https://script.google.com/a/macros/saerom.hs.kr/s/AKfycbxnlazIoj4-AA3suIg56rylRJys3cT8xO2aPIpOVVwZcwHIqExxmKEkQRvS-bmYNBA/exec"></iframe>
+            </div>
+
+            <div id="wifi_button" class="hidden-button" onclick="toggleWifi()">
+                <i class="material-icons" id="wifi_icon">wifi</i>
+                <p
+                    style="position:absolute; top:30px; left:-5px; width:50px; font-size:13px; font-weight: 600; color: #2f2f2f">
+                    와이파이</p>
+            </div>
+
+            <div id="wifi">
+                <iframe
+                    src="https://script.google.com/macros/s/AKfycbwxUSGOEu9HtqwrUmZCFtcm8W4trkp8b5OBVleYlgjbVVYUxAdJy3p01lcKmjr4HbMp/exec"></iframe>
+            </div>
+
+            <div id="diagnosis_button" class="hidden-button" onclick="togglediagnosis()">
+                <i class="material-icons" id="diagnosis_icon">medical_services</i>
+                <p
+                    style="position:absolute; top:30px; left:0px; width:50px; font-size:13px; font-weight: 600; color: #2f2f2f;">
+                    진단기</p>
+            </div>
+
+            <div id="diagnosis">
+                <iframe
+                    src="https://script.google.com/macros/s/AKfycbwLUrIAF1LUcJWWpFxUAEhKw--qxi-L1E6AAVqyW6JIOuu8hhJWUgaKLSFk7xd8K_xd/exec"></iframe>
+            </div>
+        </div>
+
+        <div id="chromebook">
+            <iframe
+                src="https://script.google.com/a/macros/saerom.hs.kr/s/AKfycbwIuV0omLN3xxtgLiBMRJwI7o4ZDp2-mdRVjL2T-HnGxgXYbBdCsb-bxcSt-Kb6jwqegg/exec"></iframe>
+        </div>
+
+        <br>
+        <br>
+
+        <div id="google_tools">
+            <a href="https://www.google.com/?hl=ko&safe=active&ssui=on"><img
+                    src="https://lh3.googleusercontent.com/d/190psV0M_A8QpY9a0naAFC91DYJrkDM7h"><label>Google</label>
+                <lable class="detail">다양한 정보를 빠르게 찾을 수 있는 종합 검색 엔진</label></img>
+            </a>
+            <a href="https://classroom.google.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1PC8B6xqUNgaON9vN-VR6FARfL_OzHLf-"><label>Classroom</label>
+                <lable class="detail">온라인 수업 자료 배포와 과제 관리를 위한 플랫폼</label></img>
+            </a>
+            <a href="https://drive.google.com/drive/home"><img
+                    src="https://lh3.googleusercontent.com/d/12UwKAuuuHFXrab7Z2YijggsFJh07B0oY"><label>Drive</label>
+                <lable class="detail">문서, 파일 등을 저장하고 공유하는 클라우드 저장소</label></img>
+            </a>
+            <a href="https://mail.google.com/mail/u/0/#inbox"><img
+                    src="https://lh3.googleusercontent.com/d/10vbQhEw4hVE4m6VtKQJv-uFEUbKEd14Y"><label>Gmail</label>
+                <lable class="detail">구글 계정을 기반으로 하는 이메일 서비스</label></img>
+            </a>
+            <a href="https://mail.google.com/chat/"><img
+                    src="https://lh3.googleusercontent.com/d/13b8NWJsymDTY9m_IK75f-Qq-Bi1Efekq"><label>Chat</label>
+                <lable class="detail">실시간 협업 및 커뮤니케이션을 위한 채팅</label></img>
+            </a>
+            <a href="https://www.google.com/maps?authuser=0"><img
+                    src="https://lh3.googleusercontent.com/d/1JLJH9DU1PKPy5yuWrRcjN4WTSLCqZJac"><label>Maps</label>
+                <lable class="detail">위치 확인, 거리 탐색 등을 위한 지리 지도</label></img>
+            </a>
+            <a href="https://calendar.google.com/calendar/u/0/r"><img
+                    src="https://lh3.googleusercontent.com/d/1a0ZQWmxWksoYNwjd9U3QpNQ9bBYwCGxF"><label>Calendar</label>
+                <lable class="detail">일정 등록, 알림 설정, 공유 기능 제공 도구</label></img>
+            </a>
+            <a href="https://colab.research.google.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1bE98IDUKAUAU8vLPdh9UrSEXVUAoK1tK"
+                    style="width:80px; height:50px;"><label>Colab</label>
+                <lable class="detail">파이썬 코드 실습 및 프로젝트 공동 수행</label></img>
+            </a>
+            <a href="https://docs.google.com/presentation/"><img
+                    src="https://lh3.googleusercontent.com/d/1NqZRbZQjb9wik64j73Yb8nM2oMxln3Qc"><label>Slides</label>
+                <lable class="detail">프레젠테이션 제작 및 공유</label></img>
+            </a>
+            <a href="https://keep.google.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1ph-ekpO4yPr2P5stdfgmWkAc78O_JlVv"><label>Keep</label>
+                <lable class="detail">메모를 기록할 수 있는 메모장</label></img>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/"><img
+                    src="https://lh3.googleusercontent.com/d/1WKgUC17IHqgQSURQhUmwMW9exKuVGteZ"><label>Sheets</label>
+                <lable class="detail">데이터를 정리하고 분석할 수 있는 스프레드시트</label></img>
+            </a>
+            <a href="https://docs.google.com/document/"><img
+                    src="https://lh3.googleusercontent.com/d/1FSLqcPYb5B7_NorkybhgXqySxC7BTLYk"><label>Docs</label>
+                <lable class="detail">글 작성과 공동 편집이 가능한 워드 프로세서</label></img>
+            </a>
+            <a href="https://sites.google.com/?hl=ko&tgif=d"><img
+                    src="https://lh3.googleusercontent.com/d/1zQD1nOwHNWkBhvpqrSylIb4ibPDhg_Wv"><label>Sites</label>
+                <lable class="detail">학급 또는 프로젝트용 웹사이트 제작 도구</label></img>
+            </a>
+            <a href="https://docs.google.com/forms/"><img
+                    src="https://lh3.googleusercontent.com/d/1d9vlFjFL6ug8PzASHwD5GuZKtzdhoule"><label>Forms</label>
+                <lable class="detail">설문조사, 퀴즈 등 피드백 수집 가능 사이트</label></img>
+            </a>
+            <a href="https://scholar.google.co.kr/schhp?hl=ko"><img
+                    src="https://lh3.googleusercontent.com/d/1qxk1eSVipbnJrLOk3_3YJwxSZ3xGMavF"><label>Scholar</label>
+                <lable class="detail">학술 논문, 연구자료를 찾을 수 있는 전문 검색 엔진</label></img>
+            </a>
+            <a href="https://translate.google.com/?sl=ko&tl=en&op=translate"><img
+                    src="https://lh3.googleusercontent.com/d/10zZT7X5qXuUt5eujsXFXVTqgsp_iDoXi"><label>Translate</label>
+                <lable class="detail">다국어 텍스트를 자동으로 다른 언어로 바꿔주는 언어 변환 도구</label></img>
+            </a>
+        </div>
+
+        <div id="create_tools">
+            <a href="https://www.canva.com/ko_kr/"><img
+                    src="https://lh3.googleusercontent.com/d/1pi_xgsTzpAz0v8iUp2HZ_YOHE8zLUUsR"><label>Canva</label><label
+                    class="detail">포스터, 카드, 발표 자료 등 다양한 디자인 제작 도구</label></img></a>
+            <a href="https://www.miricanvas.com/"><img
+                    src="https://lh3.googleusercontent.com/d/18n_ix3BQMO6seBzlRchiMelUxO3dQdzs"><label>MiriCanvas</label><label
+                    class="detail">템플릿을 활용해 다양한 디자인을 쉽게 만들 수 있는 플랫폼</label></img></a>
+            <a
+                href="https://www.google.com/url?q=https%3A%2F%2Fwww.hancomdocs.com%2Fko%2Fhome&sa=D&sntz=1&usg=AOvVaw1_Mfkgc5hMZSy_2xDEPJlY"><img
+                    src="https://lh3.googleusercontent.com/d/17mluXURcDlF-rLvC_VKcebtVNPxHYCbS"><label>Hancom
+                    Docs</label><label class="detail">한글 문서를 웹에서 작성 및 공동 작업 도구</label></img></a>
+            <a href="https://app.clipchamp.com/login"><img
+                    src="https://lh3.googleusercontent.com/d/1SVgXAkFoy3EMLe2lbP3Jl4ZwWq44sb1v"><label>Clipchamp</label><label
+                    class="detail">웹 기반의 간단한 영상 편집 도구</label></img></a>
+            <a href="https://www.programiz.com/python-programming/online-compiler/"><img
+                    src="https://lh3.googleusercontent.com/d/1c1kjAJMwVTQ_rPaTIqDg_WuFJ-JMb_QD"><label>Programiz</label><label
+                    class="detail">프로그래밍 언어 실습 플랫폼</label></img></a>
+            <a href="https://www.polarisoffice.com/ko/personal/officeweb"><img
+                    src="https://lh3.googleusercontent.com/d/1e9Wwvrd1Xh5V199baqZ0w_MFOFbZ4itV"><label>Polaris
+                    Office</label><label class="detail">문서, 엑셀, 프레젠테이션 작성과 편집이 가능한 오피스</label></img></a>
+            <a href="https://bookcreator.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1GAib2KLoP6H0HoL13y6oDiNqPmMARO8_"><label>Book
+                    Creator</label><label class="detail">나만의 전자책을 만들 수 있는 책 제작 도구</label></img></a>
+            <a href="https://www.tinkercad.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1pfwpOtMqHdSfTHI7JUUlp9Xqm5_naO9N"
+                    style="width:80px; height:80px;"><label>Tinkercad</label><label class="detail">3D 모델링과 전자회로 설계
+                    도구</label></img></a>
+            <a href="https://www.figma.com/ko-kr/"><img
+                    src="https://lh3.googleusercontent.com/d/1UcuQavCdAJUQF2X0fIUdtNvxtI2mTLBm"
+                    style="width:80px; height:80px;"><label>Figma</label><label class="detail">웹 기반 UI/UX 디자인 및 공동 작업
+                    도구</label></img></a>
+        </div>
+
+        <div id="search_tools">
+            <a href="https://www.naver.com/"><img
+                    src="https://lh3.googleusercontent.com/d/14QSMWmkquRI0vEbsnwMiy063_kOfhm_W"><label>네이버</label><label
+                    class="detail">포털 기반으로 다양한 콘텐츠와 정보를 통합 제공하는 웹</label></img></a>
+            <a href="https://dict.naver.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1r5WZpnw4p4tTUQrDgh029-jr4-8365Mp"><label>네이버
+                    어학사전</label><label class="detail">다양한 분야의 지식을 모아놓은 백과사전 서비스</label></img></a>
+            <a href="https://namu.wiki/w/%EB%82%98%EB%AC%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8"><img
+                    src="https://lh3.googleusercontent.com/d/1f8HEDiVMkMUG5XgAJQVvp5oTfNLQH3Yz"><label>나무위키</label><label
+                    class="detail">한국인 사용자 참여로 구성된 온라인 백과사전</label></img></a>
+            <a href="https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8C%80%EB%AC%B8"><img
+                    src="https://lh3.googleusercontent.com/d/1loTaZVYmNIrhJcuqR3LvpW2IS2RLU41F"><label>위키백과</label><label
+                    class="detail">전세계 사용자 참여로 구성된 온라인 백과사전</label></img></a>
+            <a href="https://www.dbpia.co.kr/"><img
+                    src="https://lh3.googleusercontent.com/d/1U-Jjbce0qzD63HDO0xPfN1mLmskhHx7z"
+                    style="height:90px; width:70px;"><label>DBpia</label><label class="detail">국내 학술지 논문 검색 및 열람이 가능한 학술
+                    데이터베이스</label></img></a>
+            <a href="https://www.bigkinds.or.kr/"><img
+                    src="https://lh3.googleusercontent.com/d/12-mq3GlouRJxrmu4QR9Yojb43b3b5saV"><label>빅카인즈</label><label
+                    class="detail">뉴스 데이터를 기반으로 정보 분석과 수집이 가능한 플랫폼</label></img></a>
+            <a href="https://kostat.go.kr/ansk/"><img
+                    src="https://lh3.googleusercontent.com/d/1qKK_4ZnnjFzPGQofEyFrzdnIIOohrLWL"
+                    style="height:40px; width:70px;"><label>통계청</label><label class="detail">국가 통계자료를 제공하는
+                    포털</label></img></a>
+            <a href="https://lib.sejong.go.kr/portal/"><img
+                    src="https://lh3.googleusercontent.com/d/1JxyekpJcd-CY6GWACnmhlRVN70PZ_X4l"
+                    style="height:40px;"><label>세종도서관</label><label class="detail">전자책과 학습자료를 제공하는 디지털
+                    도서관</label></img></a>
+            <a
+                href="https://read365.edunet.net/PureScreen/SchoolSearch?schoolName=%EC%83%88%EB%A1%AC%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90&provCode=I10&neisCode=I100000162"><img
+                    src="https://lh3.googleusercontent.com/d/1kW4Cz-zf6XPTwR281rluDGou6ik9apv_"
+                    style="height:40px;"><label>독서로</label><label class="detail">학교 도서관의 책을 검색할 수 있는
+                    시스템</label></img></a>
+
+            <a href="https://www.moleg.go.kr/"><img
+                    src="https://lh3.googleusercontent.com/d/1bGEO39Q9ZKsGlbP5-IHkRMg1iYs1F_Gr"
+                    style="width:70px; height:40px;"><label>법제처</label><label class="detail">법령·행정규칙·자치법규를 검색하고 해석 정보를
+                    제공하는 사이트</label></img></a>
+        </div>
+
+        <div id="ai_tools">
+            <a href="https://chatgpt.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1TjodjBxrUWipJnCtxe35afU38ehQmiI8"><label>ChatGPT</label><label
+                    class="detail">OpenAi의 생성 AI</label></img></a>
+            <a href="https://www.perplexity.ai"><img
+                    src="https://lh3.googleusercontent.com/d/1nnfQLyfQB7b6SMM7HqrP0ifjzGqeJXOl"><label>Perplexity</label><label
+                    class="detail">콘텐츠 제작에 활용할 수 있는 다양한 생성형 AI</label></img></a>
+            <a href="https://gemini.google.com/app?hl=ko"><img
+                    src="https://lh3.googleusercontent.com/d/1-mVDITf09YIWBQe8I75QQTb-Q_9ctjVp"><label>Gemini</label><label
+                    class="detail">구글의 생성형 AI</label></img></a>
+            <a href="https://gamma.app/"><img
+                    src="https://lh3.googleusercontent.com/d/1vJWHiOphaulKBWg5T25Tfn95tyouyErQ"><label>Gamma</label><label
+                    class="detail">발표 자료,ppt를 자동으로 생성해주는 AI</label></img></a>
+            <a href="https://www.napkin.ai/"><img
+                    src="https://lh3.googleusercontent.com/d/1k5d_XeJD0SUWfM2xSuqj908uBcqnta65"><label>Napkin</label><label
+                    class="detail">아이디어를 정리하고 시각적으로 정리해주는 AI</label></img></a>
+            <a href="https://suno.com/home"><img
+                    src="https://lh3.googleusercontent.com/d/11ClzmawSsaAf5uDcQMLncSGc-aiNS0rB"><label>Suno</label><label
+                    class="detail">텍스트로 음악을 생성해주는 AI</label></img></a>
+            <a href="https://claude.ai/new"><img
+                    src="https://lh3.googleusercontent.com/d/1xukEYB8mYrhZw9WpHljIWhYKDrq5fBKe"><label>Claude</label><label
+                    class="detail">문서 분석, 대화 등의 작업을 지원하는 AI</label></img></a>
+        </div>
+
+        <div id="educate_tools">
+            <a href="https://www.ebsi.co.kr/ebs/pot/poti/main.ebs"><img
+                    src="https://lh3.googleusercontent.com/d/1xT4iCE9MxDYEW9RXSTcmKGIZatlvDnXT"><label>EBSi</label><label
+                    class="detail">교육과정 기반의 학습 콘텐츠를 제공하는 학습 지원 플랫폼</label></img></a>
+            <a href="https://www.kmooc.kr/"><img
+                    src="https://lh3.googleusercontent.com/d/1-5fJ37wuXTZI_YH2ZdhlLiSKa2GgZSs2"
+                    style="height:15px;"><label>KMOOC</label><label class="detail">대학 수준의 강의 수강 플랫폼</label></img></a>
+            <a href="https://ko.khanacademy.org/"><img
+                    src="https://lh3.googleusercontent.com/d/1-dLcihMwCqWdU43QrpTNtRFD3Q2ByfH-"><label>Khan
+                    Academy</label><label class="detail">수학, 과학등의 과목 무료 강의 제공 플랫폼</label></img></a>
+            <a href="https://www.ted.com/"><img
+                    src="https://lh3.googleusercontent.com/d/16ZI60Esthli6E4wcVThASK4WYF7Zxmdu"><label>TED</label><label
+                    class="detail">다양한 분야의 명사 강연을 시청할 수 있는 영상 플랫폼</label></img></a>
+            <a href="https://www.wolframalpha.com/"><img
+                    src="https://lh3.googleusercontent.com/d/1sKleuIHfBBjeBALGJxJcgGaSqA6q8y81"><label>WolframAlpha</label><label
+                    class="detail">수학, 과학 등 계산 중심 지식 탐색 도구</label></img></a>
+            <a href="https://saerom-hs.goorm.io"><img
+                    src="https://lh3.googleusercontent.com/d/1yvQRM1TMbFUnmSIDC_YEz3zG-jpKkVlN"><label>goorm</label><label
+                    class="detail">클라우드 기반의 프로그래밍 학습을 제공하는 플랫폼</label></img></a>
+            <a href="https://student.focuspang.com/ko/login"><img
+                    src="https://lh3.googleusercontent.com/d/1X1sqIWZEjRbwXinzxTT0nLuYhhTMx5NZ"
+                    style="width:70px; height:70px;"><label>포커스팡</label><label class="detail">학습 보조 도구로 학습 시간을 관리할 수 있는
+                    플랫폼</label></img></a>
+        </div>
+
+        <div id="career_tools">
+            <a href="https://www.career.go.kr/cloud/w/main/home"><img
+                    src="https://lh3.googleusercontent.com/d/1SKAOO3SwjIvhvjZUJPoZDPdKzCtrOTMx"
+                    style="height:20px;"><label>커리어넷</label><label class="detail">직업 정보와 진로 설계 자료를 제공하는 진로 탐색
+                    플랫폼</label></img></a>
+            <a href="https://www.adiga.kr/man/inf/mainView.do?menuId=PCMANINF1000"><img
+                    src="https://lh3.googleusercontent.com/d/13pVxj0Jq8ur_L6YayVb-tvrIamAt0WlH"
+                    style="width:80px; height:40px;"><label>어디가</label><label class="detail">대학 입시 정보를 종합적으로 제공하는 공신력 있는
+                    서비스</label></img></a>
+            <a href="https://www.majormap.net/"><img
+                    src="https://lh3.googleusercontent.com/d/1Q5MIMwqhUJYGzD5_zjmKfiUTAbSaShNg"
+                    style="width:70px; height:30px;"><label>MAJOR MAP</label><label class="detail">진로에 따라 어울리는 학과나 직업을
+                    추천하는 도구</label></img></a>
+            <a href="https://www.academyinfo.go.kr/index.do"><img
+                    src="https://lh3.googleusercontent.com/d/1-rthHHaQRYwxGTKOjN_sPwnLywxsMFQQ"
+                    style="width:80px; height:80px;"><label>대학알리미</label><label class="detail">각 대학의 전형, 등록금, 졸업률 등 정보를
+                    제공하는 공공 플랫폼</label></img></a>
+            <a href="https://www.work24.go.kr/cm/main.do"><img
+                    src="https://lh3.googleusercontent.com/d/1pqAjKxSxRO2t56sTOSyAnRVnQkD-Stii"
+                    style=" width:80px; height:25px;"><label>고용24</label><label class="detail">구직 정보와 직업 정보를 제공하는 고용노동부
+                    취업 포털</label></img></a>
+        </div>
+
+        <div id="communication_tools">
+            <a href="https://v4.schoolbell-e.com/ko/gate/home"><img
+                    src="https://lh3.googleusercontent.com/d/1wRuxPBuZMRSlzObUBtLO-WEunaSwt4cY"><label>학교종이</label><label
+                    class="detail">학부모에게 공지사항이나 가정통신문을 전송하는 플랫폼</label></img></a>
+            <a href="https://neisplus.kr/"><img
+                    src="https://lh3.googleusercontent.com/d/1rOlbdxIRZfHSX_r67Lz0zkTKJV1hh8sX"><label>나이스플러스</label><label
+                    class="detail">학생 생활기록, 성적 등 교육 정보를 종합 관리하는 시스템</label></img></a>
+            <a href="https://www.togetherschool.go.kr/"><img src="
+                https://lh3.googleusercontent.com/d/10Rv20r06qGkvkQYx2-q2UJPqtq-wW26n"><label>함께학교</label><label class="
+                detail">학생, 학부모, 교사 간의 소통을 지원하는 커뮤니티</label></img></a>
+            <a href="https://saerom.sjeduhs.kr/saerom-h/main.do?sso=ok"><img
+                    src="https://lh3.googleusercontent.com/d/1MZ1gSJmAcMjV-A7iQ9cnJTn0CK_qnG7b"><label>새롬고
+                    홈페이지</label><label class="detail">학교 공지사항, 행사 일정 등 공식 정보 제공 사이트</label></img></a>
+            <a href="https://sites.google.com/saerom.hs.kr/depression-test/"><img
+                    src="https://lh3.googleusercontent.com/d/1oDQvpA9n7mk3Q5MBART2ponyS_cuCe5W"
+                    style="width:80px; height:80px;">
+                <label>마음진단</label>
+                <lable class="detail">고1~고3 학생들이 간단한 질문으로 지금 마음 상태를 살펴보고, 필요하면 바로 상담 예약까지 할 수 있는 웹
+                    </label></img>
+            </a>
+            <a href="http://comci.net:4082/st"><img
+                    src="https://lh3.googleusercontent.com/d/1BtpKaZOvHb0bBLodeJ8D8y62SGS9ly6h"><label>컴시간</label><label
+                    class="detail">학교 시간표 제작 및 관리 도구</label></img></a>
+            <a href="https://www.hancomtaja.com/ko"><img
+                    src="https://lh3.googleusercontent.com/d/14pXBgjl52To3goDmhYRosX3l5xp8gUxv"
+                    style="width:80px; height:80px;"><label>한컴타자</label><label class="detail">타자 실력을 향상시킬 수 있는 온라인 타자 연습
+                    프로그램</label></img></a>
+        </div>
+
+        <br>
+
+        <div id="producer" style="width:90%; margin-left: 3.5%">
+            <hr>
+            <p style="color: #999999; margin: 0; padding: 0;">made by 테크웍스</p>
+            <ul
+                style="padding-left: 20px; margin: 5px 0; display: flex; flex-wrap: wrap; gap: 30px; list-style-type: disc; list-style-position: inside; color: #999999;">
+                <li>한도경</li>
+                <li>이태인</li>
+                <li>이율ㅤ</li>
+                <li>강민서</li>
+                <li>민찬요</li>
+                <li>박승민</li>
+                <li>정지석</li>
+                <li>류우현</li>
+                <li>허동하</li>
+                <li>박상준</li>
+                <li>이동하</li>
+                <li>임수아</li>
+                <li>이유정</li>
+                <li>김민석</li>
+                <li>성지안</li>
+                <li>김관수</li>
+                <li>천지환</li>
+                <li>조한솔</li>
+            </ul>
+        </div>
+
+        <div id="side_object">
+            <iframe src="https://script.google.com/a/macros/saerom.hs.kr/s/AKfycbz-RU9UhMRXVxaYkRzD5-AnPe0FaIwVa1TZTNod5VclZUk6jcgIrz27LIFF9tvvHMd4rw/exec
+"></iframe>
+        </div>
+
+    </div>
+
+    <div id="blur-overlay"></div>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script>
+        const sheetURL = "https://script.google.com/macros/s/AKfycbxHE6AOAiDnvZDu5rj-nKDwononCGr-jBSzynl-hV4Ql1gjAvKKP-GOg16JKeEt-cPdnw/exec";
+
+        let banners = [];
+        let currentIndex = 0;
+        let showing = 1;
+        let interval;
+
+        function createBannerHTML(banner) {
+            const link = banner["링크"];
+            if (link) {
+                return `
+            <a href="${link}" target="_blank" style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 5;
+                text-decoration: none;
+                display: block;
+                background-color: transparent; /* ✅ 이 줄 추가 */
+            "></a>
+        `;
+            } else {
+                return '';
+            }
+        }
+
+        function updateBanner(index) {
+            const banner = banners[index];
+            const currentDiv = document.getElementById(`banner${showing}`);
+            const nextDiv = document.getElementById(`banner${showing === 1 ? 2 : 1}`);
+
+            nextDiv.style.backgroundImage = `url('${banner["배너"]}')`;
+            nextDiv.innerHTML = createBannerHTML(banner);
+
+            nextDiv.style.transform = 'translateX(100%)';
+            nextDiv.classList.remove('hidden');
+
+            setTimeout(() => {
+                currentDiv.style.transform = 'translateX(-100%)';
+                nextDiv.style.transform = 'translateX(0)';
+            }, 50);
+
+            setTimeout(() => {
+                currentDiv.classList.add('hidden');
+                currentDiv.style.transform = 'translateX(0)';
+                showing = showing === 1 ? 2 : 1;
+            }, 800);
+
+            currentIndex = index;
+            updateTabs(index);
+        }
+
+        function updateTabs(activeIndex) {
+            const dots = document.querySelectorAll('.tab-dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === activeIndex);
+            });
+        }
+
+        function createTabs() {
+            const tabsContainer = document.getElementById('tabs');
+            tabsContainer.innerHTML = '';
+            banners.forEach((_, idx) => {
+                const dot = document.createElement('span');
+                dot.className = 'tab-dot';
+                if (idx === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    clearInterval(interval);
+                    updateBanner(idx);
+                    startAutoSlide();
+                });
+                tabsContainer.appendChild(dot);
+            });
+        }
+
+        function startAutoSlide() {
+            interval = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % banners.length;
+                updateBanner(nextIndex);
+            }, 5000);
+        }
+
+        function prevBanner() {
+            clearInterval(interval);
+            const prevIndex = (currentIndex - 1 + banners.length) % banners.length;
+            updateBanner(prevIndex);
+            startAutoSlide();
+        }
+
+        function nextBanner() {
+            clearInterval(interval);
+            const nextIndex = (currentIndex + 1) % banners.length;
+            updateBanner(nextIndex);
+            startAutoSlide();
+        }
+
+        fetch(sheetURL)
+            .then(res => res.json())
+            .then(data => {
+                banners = data.filter(b => b["배너"]);
+                if (banners.length > 0) {
+                    createTabs();
+                    updateBanner(0);
+                    if (banners.length > 1) {
+                        startAutoSlide();
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("❌ 광고 데이터 로딩 실패:", err);
+            });
+
+        const suggestions = [
+            "구글", "google", "클래스룸", "classroom", "드라이브", "drive", "지메일", "gmail",
+            "챗", "chat", "맵", "maps", "캘린더", "calendar", "슬라이드", "slides", "킵", "keep",
+            "시트", "sheets", "독스", "문서", "docs", "사이트", "sites", "폼", "forms", "코랩", "colab",
+            "학술 검색", "scholar", "번역기", "translate", "캔바", "canva", "미리캔버스", "miricanvas",
+            "한컴독스", "hancom docs", "클립챔프", "clipchamp", "프로그래마이즈", "programize",
+            "폴라리스 오피스", "polaris office", "북크리에이터", "book creator", "틴커캐드", "tinkercad",
+            "피그마", "figma", "네이버", "naver", "네이버 어학사전", "naver dictionary", "나무위키", "namuwiki",
+            "위키백과", "wikipedia", "디비피아", "dbpia", "빅카인즈", "bigkinds", "통계청", "kostat",
+            "세종도서관", "독서로", "챗지피티", "chatgpt", "퍼플렉시티", "perplexity", "제미나이", "gemini",
+            "감마", "gamma", "냅킨", "napkin", "수노", "suno", "클로드", "claude", "이비에스아이", "ebsi",
+            "kmooc", "칸 아카데미", "khan academy", "테드", "ted", "울프람알파", "wolframalpha",
+            "구름", "goorm", "커리어넷", "careernet", "어디가", "adiga", "majormap", "메이저맵",
+            "대학알리미", "고용24", "work24", "학교종이", "나이스플러스", "neisplus", "함께학교",
+            "새롬고 홈페이지", "한컴타자", "hancom taja", "컴시간", "마음진단", "포커스팡", "focuspang", "법제처"
+        ];
+
+        let currentFocus = -1;
+
+        function getInitialConsonants(word) {
+            const initial = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+            return Array.from(word).map(ch => {
+                const code = ch.charCodeAt(0) - 44032;
+                return code >= 0 && code <= 11171
+                    ? initial[Math.floor(code / 588)]
+                    : ch;
+            }).join('');
+        }
+
+        function showSuggestions() {
+            const input = document.getElementById('inputField').value;
+            const val = input.toLowerCase();
+            const list = document.getElementById('suggestionList');
+            list.innerHTML = '';
+            currentFocus = -1;
+            if (!val) { list.style.display = 'none'; return; }
+
+            const isInitialSearch = /^[ㄱ-ㅎ]+$/.test(input);
+            const init = isInitialSearch ? val : getInitialConsonants(val);
+
+            const matches = suggestions.filter(sugg => {
+                const low = sugg.toLowerCase();
+                if (isInitialSearch) {
+                    return getInitialConsonants(low).includes(init);
+                } else {
+                    return low.includes(val);
+                }
+            });
+
+            if (matches.length) {
+                matches.forEach(text => {
+                    const li = document.createElement('li');
+                    li.textContent = text;
+                    li.onclick = () => {
+                        document.getElementById('inputField').value = text;
+                        list.style.display = 'none';
+                        printLink();
+                    };
+                    list.appendChild(li);
+                });
+                list.style.display = 'block';
+            } else {
+                list.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                list.style.display = 'block';
+            }
+        }
+
+        function addActive(items) {
+            if (!items) return;
+            removeActive(items);
+            if (currentFocus >= items.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = items.length - 1;
+            items[currentFocus].classList.add('active');
+            items[currentFocus].scrollIntoView({ block: 'nearest' });
+        }
+        function removeActive(items) {
+            Array.from(items).forEach(i => i.classList.remove('active'));
+        }
+
+        function checkEnterKey(e) {
+            const list = document.getElementById('suggestionList');
+            const items = list.getElementsByTagName('li');
+            if (e.key === 'ArrowDown') {
+                currentFocus++;
+                addActive(items);
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                currentFocus--;
+                addActive(items);
+                e.preventDefault();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentFocus > -1 && items[currentFocus]) {
+                    items[currentFocus].click();
+                } else {
+                    printLink();
+                }
+                list.style.display = 'none';
+            }
+        }
+
+        function printLink() {
+            const input = document.getElementById('inputField').value.trim();
+            const links = {
+                "구글": "https://www.google.com/",
+                "google": "https://www.google.com/",
+                "클래스룸": "https://classroom.google.com/",
+                "classroom": "https://classroom.google.com/",
+                "드라이브": "https://drive.google.com/",
+                "drive": "https://drive.google.com/",
+                "지메일": "https://mail.google.com/",
+                "gmail": "https://mail.google.com/",
+                "챗": "https://mail.google.com/chat/",
+                "chat": "https://mail.google.com/chat/",
+                "맵": "https://www.google.com/maps",
+                "maps": "https://www.google.com/maps",
+                "캘린더": "https://calendar.google.com/",
+                "calendar": "https://calendar.google.com/",
+                "슬라이드": "https://docs.google.com/presentation/",
+                "slides": "https://docs.google.com/presentation/",
+                "킵": "https://keep.google.com/",
+                "keep": "https://keep.google.com/",
+                "시트": "https://docs.google.com/spreadsheets/",
+                "sheets": "https://docs.google.com/spreadsheets/",
+                "독스": "https://docs.google.com/document/",
+                "문서": "https://docs.google.com/document/",
+                "docs": "https://docs.google.com/document/",
+                "사이트": "https://sites.google.com/",
+                "sites": "https://sites.google.com/",
+                "폼": "https://docs.google.com/forms/",
+                "forms": "https://docs.google.com/forms/",
+                "코랩": "https://colab.research.google.com/",
+                "colab": "https://colab.research.google.com/",
+                "학술 검색": "https://scholar.google.co.kr/schhp",
+                "scholar": "https://scholar.google.co.kr/schhp",
+                "번역기": "https://translate.google.com/",
+                "translate": "https://translate.google.com/",
+                "캔바": "https://www.canva.com/ko_kr/",
+                "canva": "https://www.canva.com/ko_kr/",
+                "미리캔버스": "https://www.miricanvas.com/",
+                "miricanvas": "https://www.miricanvas.com/",
+                "한컴독스": "https://www.hancomdocs.com/ko/home",
+                "hancom docs": "https://www.hancomdocs.com/ko/home",
+                "클립챔프": "https://app.clipchamp.com/login",
+                "clipchamp": "https://app.clipchamp.com/login",
+                "프로그래마이즈":
+                    "https://www.programiz.com/python-programming/online-compiler/",
+                "programize":
+                    "https://www.programiz.com/python-programming/online-compiler/",
+                "폴라리스 오피스": "https://www.polarisoffice.com/ko/personal/officeweb",
+                "polaris office":
+                    "https://www.polarisoffice.com/ko/personal/officeweb",
+                "북크리에이터": "https://bookcreator.com/", "book creator":
+                    "https://bookcreator.com/",
+                "틴커캐드":
+                    "https://www.tinkercad.com/", "tinkercad": "https://www.tinkercad.com/",
+                "피그마": "https://www.figma.com/ko-kr/", "figma": "https://www.figma.com/ko-kr/",
+                "네이버": "https://www.naver.com/", "naver": "https://www.naver.com/",
+                "naver": "https://www.naver.com/",
+                "네이버 어학사전": "https://dict.naver.com/",
+                "naver dictionary": "https://dict.naver.com/",
+                "나무위키": "https://namu.wiki/w/%EB%82%98%EB%AC%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8",
+                "namuwiki": "https://namu.wiki/w/%EB%82%98%EB%AC%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8",
+                "위키백과": "https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8C%80%EB%AC%B8",
+                "wikipedia": "https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8C%80%EB%AC%B8",
+                "디비피아": "https://www.dbpia.co.kr/",
+                "dbpia": "https://www.dbpia.co.kr/",
+                "빅카인즈": "https://www.bigkinds.or.kr/",
+                "bigkinds": "https://www.bigkinds.or.kr/",
+                "통계청": "https://kostat.go.kr/ansk/",
+                "kostat": "https://kostat.go.kr/ansk/",
+                "세종도서관": "https://lib.sejong.go.kr/portal/",
+                "독서로": "https://read365.edunet.net/PureScreen/SchoolSearch?schoolName=%EC%83%88%EB%A1%AC%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90&provCode=I10&neisCode=I100000162",
+                "챗지피티": "https://chatgpt.com/",
+                "chatgpt": "https://chatgpt.com/",
+                "퍼플렉시티": "https://www.perplexity.ai/",
+                "perplexity": "https://www.perplexity.ai/",
+                "제미나이": "https://gemini.google.com/app?hl=ko",
+                "gemini": "https://gemini.google.com/app?hl=ko",
+                "감마": "https://gamma.app/",
+                "gamma": "https://gamma.app/",
+                "냅킨": "https://www.napkin.ai/",
+                "napkin": "https://www.napkin.ai/",
+                "수노": "https://suno.com/home",
+                "suno": "https://suno.com/home",
+                "클로드": "https://claude.ai/new",
+                "claude": "https://claude.ai/new",
+                "이비에스아이": "https://www.ebsi.co.kr/ebs/pot/poti/main.ebs",
+                "ebsi": "https://www.ebsi.co.kr/ebs/pot/poti/main.ebs",
+                "kmooc": "https://www.kmooc.kr/",
+                "칸 아카데미": "https://ko.khanacademy.org/",
+                "khan academy": "https://ko.khanacademy.org/",
+                "테드": "https://www.ted.com/",
+                "ted": "https://www.ted.com/",
+                "울프람알파": "https://www.wolframalpha.com/",
+                "wolframalpha": "https://www.wolframalpha.com/",
+                "구름": "https://saerom-hs.goorm.io/",
+                "goorm": "https://saerom-hs.goorm.io/",
+                "커리어넷": "https://www.career.go.kr/cloud/w/main/home",
+                "careernet": "https://www.career.go.kr/cloud/w/main/home",
+                "어디가": "https://www.adiga.kr/man/inf/mainView.do?menuId=PCMANINF1000",
+                "adiga": "https://www.adiga.kr/man/inf/mainView.do?menuId=PCMANINF1000",
+                "majormap": "https://www.majormap.net/",
+                "메이저맵": "https://www.majormap.net/",
+                "대학알리미": "https://www.academyinfo.go.kr/index.do",
+                "고용24": "https://www.work24.go.kr/cm/main.do",
+                "work24": "https://www.work24.go.kr/cm/main.do",
+                "학교종이": "https://v4.schoolbell-e.com/ko/gate/home",
+                "나이스플러스": "https://neisplus.kr/",
+                "neisplus": "https://neisplus.kr/",
+                "함께학교": "https://www.togetherschool.go.kr/",
+                "새롬고 홈페이지": "https://saerom.sjeduhs.kr/saerom-h/main.do?sso=ok",
+                "한컴타자": "https://www.hancomtaja.com/ko",
+                "hancom taja": "https://www.hancomtaja.com/ko",
+                "컴시간": "http://comci.net:4082/st",
+                "마음진단": "https://sites.google.com/saerom.hs.kr/depression-test/%EB%A7%88%EC%9D%8C-%EC%A7%84%EB%8B%A8",
+                "포커스팡": "https://student.focuspang.com/ko/login",
+                "focuspang": "https://student.focuspang.com/ko/login",
+                "법제처": "https://www.moleg.go.kr/"
+            };
+
+            if (links[input]) {
+                window.open(links[input], '_blank');
+            } else {
+                alert('검색 결과가 없습니다.');
+            }
+        }
+
+        const searchInput = document.querySelector("#suggestionContainer input");
+        window.addEventListener("keydown", (e) => {
+            if (document.querySelector("#suggestions iframe").style.display === "block") {
+                return;
+            }
+            searchInput.focus();
+        })
+
+        const buttonsDiv = document.getElementById("buttons");
+        const moreBtn = document.getElementById("more_button");
+        const blurOverlay = document.getElementById("blur-overlay");
+
+        moreBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (buttonsDiv.classList.contains("collapsed")) {
+                buttonsDiv.classList.remove("collapsed");
+                buttonsDiv.classList.add("expanded");
+                blurOverlay.style.display = "block";
+            } else {
+                buttonsDiv.classList.remove("expanded");
+                buttonsDiv.classList.add("collapsed");
+                blurOverlay.style.display = "none";
+            }
+        });
+        // 블러 영역 클릭하면 닫기
+        blurOverlay.addEventListener("click", () => {
+            buttonsDiv.classList.add("collapsed");
+            blurOverlay.style.display = "none";
+        });
+
+        // 버튼 영역 외부 클릭 시 닫기
+        document.addEventListener("click", (e) => {
+            if (!buttonsDiv.contains(e.target) && !blurOverlay.contains(e.target)) {
+                buttonsDiv.classList.add("collapsed");
+                blurOverlay.style.display = "none";
+            }
+        });
+
+        function toggleCalendar() {
+            const iframe = document.querySelector("#calendar iframe");
+            const icon = document.getElementById("calendar_icon");
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            const isVisible = iframe.style.display === "block";
+
+            iframe.style.display = isVisible ? "none" : "block";
+            iframe.style.pointerEvents = isVisible ? "none" : "auto";
+
+            icon.textContent = isVisible ? "calendar_today" : "close";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = isVisible ? "none" : "block";
+            }
+        }
+
+        function toggleSuggestions() {
+            const iframe = document.querySelector("#suggestions iframe");
+            const icon = document.getElementById("suggestions_icon");
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            const isVisible = iframe.style.display === "block";
+
+            iframe.style.display = isVisible ? "none" : "block";
+            iframe.style.pointerEvents = isVisible ? "none" : "auto";
+
+            icon.textContent = isVisible ? "campaign" : "close";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = isVisible ? "none" : "block";
+            }
+        }
+
+        function toggleWifi() {
+            const iframe = document.querySelector("#wifi iframe");
+
+            const icon = document.getElementById("wifi_icon");
+
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            const isVisible = iframe.style.display === "block";
+
+            iframe.style.display = isVisible ? "none" : "block";
+
+            iframe.style.pointerEvents = isVisible ? "none" : "auto";
+
+            icon.textContent = isVisible ? "wifi" : "close";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = isVisible ? "none" : "block";
+            }
+        }
+
+        function toggleschedule() {
+            const iframe = document.querySelector("#schedule iframe");
+
+            const icon = document.getElementById("schedule_icon");
+
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            const isVisible = iframe.style.display === "block";
+
+            iframe.style.display = isVisible ? "none" : "block";
+
+            iframe.style.pointerEvents = isVisible ? "none" : "auto";
+
+            icon.textContent = isVisible ? "schedule" : "close";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = isVisible ? "none" : "block";
+            }
+        }
+
+        function togglemeals() {
+            const iframe = document.querySelector("#meals iframe");
+
+            const icon = document.getElementById("meals_icon");
+
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            const isVisible = iframe.style.display === "block";
+
+            iframe.style.display = isVisible ? "none" : "block";
+
+            iframe.style.pointerEvents = isVisible ? "none" : "auto";
+
+            icon.textContent = isVisible ? "restaurant_menu" : "close";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = isVisible ? "none" : "block";
+            }
+        }
+
+        function togglediagnosis() {
+            const iframe = document.querySelector("#diagnosis iframe");
+
+            const icon = document.getElementById("diagnosis_icon");
+
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            const isVisible = iframe.style.display === "block";
+
+            iframe.style.display = isVisible ? "none" : "block";
+
+            iframe.style.pointerEvents = isVisible ? "none" : "auto";
+
+            icon.textContent = isVisible ? "medical_services" : "close";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = isVisible ? "none" : "block";
+            }
+        }
+
+        document.addEventListener("click", function (event) {
+            const blurOverlay = document.getElementById("blur-overlay");
+
+            // SUGGESTIONS 처리
+            const suggestionsDiv = document.getElementById("suggestions");
+            const suggestionsButton = document.getElementById("suggestions_button");
+            const suggestionsIframe = suggestionsDiv.querySelector("iframe");
+            const suggestionsIcon = document.getElementById("suggestions_icon");
+
+            const suggestionsVisible = suggestionsIframe.style.display === "block";
+
+            if (
+                suggestionsVisible &&
+                !suggestionsDiv.contains(event.target) &&
+                !suggestionsButton.contains(event.target)
+            ) {
+                suggestionsIframe.style.display = "none";
+                suggestionsIframe.style.pointerEvents = "none";
+                suggestionsIcon.textContent = "campaign";
+            }
+
+            // CALENDAR 처리
+            const calendarDiv = document.getElementById("calendar");
+            const calendarButton = document.getElementById("calendar_button");
+            const calendarIframe = calendarDiv.querySelector("iframe");
+            const calendarIcon = document.getElementById("calendar_icon");
+
+            const calendarVisible = calendarIframe.style.display === "block";
+
+            if (
+                calendarVisible &&
+                !calendarDiv.contains(event.target) &&
+                !calendarButton.contains(event.target)
+            ) {
+                calendarIframe.style.display = "none";
+                calendarIframe.style.pointerEvents = "none";
+                calendarIcon.textContent = "calendar_today";
+            }
+
+            // WIFI 처리
+            const wifiDiv = document.getElementById("wifi");
+
+            const wifiButton = document.getElementById("wifi_button");
+
+            const wifiIframe = wifiDiv.querySelector("iframe");
+
+            const wifiIcon = document.getElementById("wifi_icon");
+
+            const wifiVisible = wifiIframe.style.display === "block";
+
+            if (
+                wifiVisible &&
+                !wifiDiv.contains(event.target) &&
+                !wifiButton.contains(event.target)
+            ) {
+                wifiIframe.style.display = "none";
+                wifiIframe.style.pointerEvents = "none";
+                wifiIcon.textContent = "wifi";
+            }
+
+            // SCHEDULE 처리
+            const scheduleDiv = document.getElementById("schedule");
+            const scheduleButton = document.getElementById("schedule_button");
+            const scheduleIframe = scheduleDiv.querySelector("iframe");
+            const scheduleIcon = document.getElementById("schedule_icon");
+
+            const scheduleVisible = scheduleIframe.style.display === "block";
+
+            if (
+                scheduleVisible &&
+                !scheduleDiv.contains(event.target) &&
+                !scheduleButton.contains(event.target)
+            ) {
+                scheduleIframe.style.display = "none";
+                scheduleIframe.style.pointerEvents = "none";
+                scheduleIcon.textContent = "schedule";
+            }
+
+            // diagnosisS 처리
+            const diagnosisDiv = document.getElementById("diagnosis");
+            const diagnosisButton = document.getElementById("diagnosis_button");
+            const diagnosisIframe = diagnosisDiv.querySelector("iframe");
+            const diagnosisIcon = document.getElementById("diagnosis_icon");
+
+            const diagnosisVisible = diagnosisIframe.style.display === "block";
+
+            if (
+                diagnosisVisible &&
+                !diagnosisDiv.contains(event.target) &&
+                !diagnosisButton.contains(event.target)
+            ) {
+                diagnosisIframe.style.display = "none";
+                diagnosisIframe.style.pointerEvents = "none";
+                diagnosisIcon.textContent = "medical_services";
+            }
+
+            // MEALS 처리
+            const mealsDiv = document.getElementById("meals");
+            const mealsButton = document.getElementById("meals_button");
+            const mealsIframe = mealsDiv.querySelector("iframe");
+            const mealsIcon = document.getElementById("meals_icon");
+
+            const mealsVisible = mealsIframe.style.display === "block";
+
+            if (
+                mealsVisible &&
+                !mealsDiv.contains(event.target) &&
+                !mealsButton.contains(event.target)
+            ) {
+                mealsIframe.style.display = "none";
+                mealsIframe.style.pointerEvents = "none";
+                mealsIcon.textContent = "restaurant_menu";
+            }
+
+            // 🔍 blurOverlay는 세 개 중 하나라도 열린 상태일 때만 보임
+            const finalSuggestionsVisible = document.querySelector("#suggestions iframe").style.display === "block";
+
+            const finalCalendarVisible = document.querySelector("#calendar iframe").style.display === "block";
+
+            const finalWifiVisible = document.querySelector("#wifi iframe").style.display === "block";
+
+            const finalScheduleVisible = document.querySelector("#schedule iframe").style.display === "block";
+
+            const finalMealsVisible = document.querySelector("#meals iframe").style.display === "block";
+
+            const finaldiagnosisVisible = document.querySelector("#diagnosis iframe").style.display === "block";
+
+            if (blurOverlay) {
+                blurOverlay.style.display = (finalSuggestionsVisible ||
+                    finalCalendarVisible ||
+                    finalWifiVisible || finalScheduleVisible || finalMealsVisible || finaldiagnosisVisible) ? "block" : "none";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+<script src="script.js"></script>
+</body>
+
+</html>
