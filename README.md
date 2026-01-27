@@ -3,6 +3,7 @@
 <p>학교에서 사용하는 크롬북을 더 편리하게 사용하기 위해 개발되었습니다.</p>
 
 <h2>Element</h2>
+<img src="https://lh3.googleusercontent.com/d/1qBGHG6UjdauNphdLzvaW38LEfWaOh1sB">
 <p>배너</p>
 <p>크롬북 반납/반출 버튼</p>
 <p>검색창</p>
