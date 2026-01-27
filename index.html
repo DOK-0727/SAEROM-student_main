@@ -402,25 +402,17 @@
             flex-wrap: nowrap;
             justify-content: flex-end;
             gap: 10px;
-            /* 기본 간격 */
         }
 
-        /* expanded 상태 - 왼쪽에서 3.5%, 버튼 가로로 70px 간격 */
         #buttons.expanded {
             display: flex;
             position: absolute;
-            /* 절대 위치 유지 */
             left: 3.5%;
-            /* 왼쪽 3.5% 위치 */
             top: 210px;
-            /* 위쪽 위치 동일 */
             width: auto;
-            /* 넓이 자동 조절 */
             flex-wrap: nowrap;
-            /* 한 줄로 */
             justify-content: flex-start;
             gap: 70px;
-            /* 버튼 간격 70px */
         }
 
         .material-icons {
@@ -566,7 +558,6 @@
             background: #333;
         }
 
-        /* 좌우 화살표 스타일 */
         .arrow {
             position: absolute;
             top: 50%;
@@ -1047,7 +1038,7 @@
                 z-index: 5;
                 text-decoration: none;
                 display: block;
-                background-color: transparent; /* ✅ 이 줄 추가 */
+                background-color: transparent;
             "></a>
         `;
             } else {
@@ -1393,13 +1384,12 @@
                 blurOverlay.style.display = "none";
             }
         });
-        // 블러 영역 클릭하면 닫기
+
         blurOverlay.addEventListener("click", () => {
             buttonsDiv.classList.add("collapsed");
             blurOverlay.style.display = "none";
         });
 
-        // 버튼 영역 외부 클릭 시 닫기
         document.addEventListener("click", (e) => {
             if (!buttonsDiv.contains(e.target) && !blurOverlay.contains(e.target)) {
                 buttonsDiv.classList.add("collapsed");
@@ -1524,7 +1514,6 @@
         document.addEventListener("click", function (event) {
             const blurOverlay = document.getElementById("blur-overlay");
 
-            // SUGGESTIONS 처리
             const suggestionsDiv = document.getElementById("suggestions");
             const suggestionsButton = document.getElementById("suggestions_button");
             const suggestionsIframe = suggestionsDiv.querySelector("iframe");
@@ -1542,7 +1531,6 @@
                 suggestionsIcon.textContent = "campaign";
             }
 
-            // CALENDAR 처리
             const calendarDiv = document.getElementById("calendar");
             const calendarButton = document.getElementById("calendar_button");
             const calendarIframe = calendarDiv.querySelector("iframe");
@@ -1560,7 +1548,6 @@
                 calendarIcon.textContent = "calendar_today";
             }
 
-            // WIFI 처리
             const wifiDiv = document.getElementById("wifi");
 
             const wifiButton = document.getElementById("wifi_button");
@@ -1581,7 +1568,6 @@
                 wifiIcon.textContent = "wifi";
             }
 
-            // SCHEDULE 처리
             const scheduleDiv = document.getElementById("schedule");
             const scheduleButton = document.getElementById("schedule_button");
             const scheduleIframe = scheduleDiv.querySelector("iframe");
@@ -1599,7 +1585,6 @@
                 scheduleIcon.textContent = "schedule";
             }
 
-            // diagnosisS 처리
             const diagnosisDiv = document.getElementById("diagnosis");
             const diagnosisButton = document.getElementById("diagnosis_button");
             const diagnosisIframe = diagnosisDiv.querySelector("iframe");
@@ -1617,7 +1602,6 @@
                 diagnosisIcon.textContent = "medical_services";
             }
 
-            // MEALS 처리
             const mealsDiv = document.getElementById("meals");
             const mealsButton = document.getElementById("meals_button");
             const mealsIframe = mealsDiv.querySelector("iframe");
@@ -1635,7 +1619,6 @@
                 mealsIcon.textContent = "restaurant_menu";
             }
 
-            // 🔍 blurOverlay는 세 개 중 하나라도 열린 상태일 때만 보임
             const finalSuggestionsVisible = document.querySelector("#suggestions iframe").style.display === "block";
 
             const finalCalendarVisible = document.querySelector("#calendar iframe").style.display === "block";
