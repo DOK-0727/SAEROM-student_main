@@ -3,7 +3,7 @@
 <p>학교에서 사용하는 크롬북을 더 편리하게 사용하기 위해 개발되었습니다.</p>
 
 <h2>Element</h2>
-<img src="SAEROM-student.main/img/전체.png">
+<img src="img/전체.png">
 <p>배너</p>
 <p>반출/반납</p>
 <p>검색창</p>
