@@ -4,7 +4,7 @@
 
 <h2>Element</h2>
 <img src="img/overview.png">
-<p>배너</p>
+<p>배너<img src="img/banner.png"></p>
 <p>반출/반납</p>
 <p>검색창</p>
 <p>부가 기능</p>
