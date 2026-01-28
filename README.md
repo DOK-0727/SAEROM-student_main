@@ -6,7 +6,7 @@
 <img src="img/overview.png">
 <p>배너<img src="img/banner.png"></p>
 <p>반출/반납<img src="img/export:return.png"></p>
-<p>검색창<img src="img/banner.png"></p>
+<p>검색창<img src="img/searchbox.png"></p>
 <p>부가 기능<img src="img/banner.png"></p>
 <p>웹 런처<img src="img/banner.png"></p>
 <p>gmail 알림<img src="img/banner.png"></p>
