@@ -5,7 +5,7 @@
 <h2>Element</h2>
 <img src="explain_img/overview.png">
 
-<b>배너</b><img src="DOK-0727/explain_img/My_Tools/Google_Sheets.jpeg">
+<b>배너</b>
 <p>교내 행사, 공지 사항 등을 알릴 수 있는 배너 시스템입니다.</p>
 <img src="explain_img/banner.png">
 
