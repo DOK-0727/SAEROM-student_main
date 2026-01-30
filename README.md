@@ -6,13 +6,13 @@
 
 <h2>Element</h2>
 <h3>배너</h3>
+<img src="explain_img/Element/banner.png">
+<p>교내 행사, 공지 사항 등을 알릴 수 있는 배너 시스템입니다.</p>
 <p>
     <img src="explain_img/My_Tech/HTML.jpeg" height="30px;"><img src="explain_img/My_Tech/CSS.jpeg" height="30px;"><img src="explain_img/My_Tech/JavaScript.jpeg" height="30px;">
     <br>
     <img src="explain_img/My_Tool/Google_Sites.jpeg" height="30px;"><img src="explain_img/My_Tool/Google_Sheets.jpeg" height="30px;">
 </P>
-<img src="explain_img/Element/banner.png">
-<p>교내 행사, 공지 사항 등을 알릴 수 있는 배너 시스템입니다.</p>
 
 <h3>크롬북 관리</h3>
 <p>
