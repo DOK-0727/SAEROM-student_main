@@ -44,11 +44,11 @@
 <h3>부가 기능</h3>
 <img src="explain_img/Element/additional_feature.png">
 <p>
-    <img src="explain_img/Element/additional_feature/timetable.png" width="100px;">
-    <img src="explain_img/Element/additional_feature/lunch.png" width="100px;">
-    <img src="explain_img/Element/additional_feature/suggestion.png" width="100px;">
-    <img src="explain_img/Element/additional_feature/wifi.png" width="100px;">
-    <img src="explain_img/Element/additional_feature/diagnosis.png" width="100px;">
+    <img src="explain_img/Element/additional_feature/timetable.png" height="100px;">
+    <img src="explain_img/Element/additional_feature/lunch.png" height="100px;">
+    <img src="explain_img/Element/additional_feature/suggestion.png" height="100px;">
+    <img src="explain_img/Element/additional_feature/wifi.png" height="100px;">
+    <img src="explain_img/Element/additional_feature/diagnosis.png" height="100px;">
 </p>
 <p>이 요소는 학생들의 크롬북 사용 편의성을 높일 수 있도록 자주 활용되는 보조 기능들을 하나의 환경에서 제공합니다.</p>
 <p>
